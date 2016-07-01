@@ -1,0 +1,5 @@
+name: activitystreams
+type: module
+description: Activitystreams
+core: 8.x
+package: Custom

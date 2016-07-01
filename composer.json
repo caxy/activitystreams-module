@@ -1,0 +1,11 @@
+{
+  "name": "drupal/activitystreams",
+  "type": "drupal-module",
+  "description": "Activity Streams model",
+  "license": "GPL-2.0+",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.x-dev"
+    }
+  }
+}

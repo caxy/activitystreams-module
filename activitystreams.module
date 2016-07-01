@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Contains activitystreams.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function activitystreams_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the activitystreams module.
+    case 'help.page.activitystreams':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Activitystreams') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function activitystreams_theme() {
+  $theme = [];
+  $theme['activity'] = [
+    'render element' => 'elements',
+    'file' => 'activity.page.inc',
+    'template' => 'activity',
+  ];
+  $theme['activity_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'activity.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+* Implements hook_theme_suggestions_HOOK().
+*/
+function activitystreams_theme_suggestions_activity(array $variables) {
+  $suggestions = array();
+  /** @var \Drupal\activitystreams\Entity\Activity $entity */
+  $entity = $variables['elements']['#activity'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'activity__' . $sanitized_view_mode;
+  $suggestions[] = 'activity__' . $entity->bundle();
+  $suggestions[] = 'activity__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'activity__' . $entity->id();
+  $suggestions[] = 'activity__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}

@@ -1,0 +1,7 @@
+# Activity type menu items definition
+entity.activity_type.collection:
+  title: 'Activity type'
+  route_name: entity.activity_type.collection
+  description: 'List Activity type (bundles)'
+  parent: system.admin_structure
+
