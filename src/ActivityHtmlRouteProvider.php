@@ -29,13 +29,6 @@ class ActivityHtmlRouteProvider extends AdminHtmlRouteProvider {
       $collection->add("entity.{$entity_type_id}.add_form", $add_form_route);
     }
 
-    $add_page_route = $this->getAddPageRoute($entity_type);
-    $collection->add("$entity_type_id.add_page", $add_page_route);
-
-    if ($settings_form_route = $this->getSettingsFormRoute($entity_type)) {
-      $collection->add("$entity_type_id.settings", $settings_form_route);
-    }
-
     return $collection;
   }
 
@@ -109,7 +102,7 @@ class ActivityHtmlRouteProvider extends AdminHtmlRouteProvider {
    *   The generated route, if available.
    */
   protected function getAddPageRoute(EntityTypeInterface $entity_type) {
-    $route = new Route("/admin/structure/{$entity_type->id()}/add");
+    $route = new Route("/activity/add");
     $route
       ->setDefaults([
         '_controller' => 'Drupal\activitystreams\Controller\ActivityAddController::add',
@@ -120,29 +113,4 @@ class ActivityHtmlRouteProvider extends AdminHtmlRouteProvider {
 
     return $route;
   }
-
-  /**
-   * Gets the settings form route.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
-   *   The entity type.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
-    if (!$entity_type->getBundleEntityType()) {
-      $route = new Route("/admin/structure/{$entity_type->id()}/settings");
-      $route
-        ->setDefaults([
-          '_form' => 'Drupal\activitystreams\Form\ActivitySettingsForm',
-          '_title' => "{$entity_type->getLabel()} settings",
-        ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
-
-      return $route;
-    }
-  }
-
 }

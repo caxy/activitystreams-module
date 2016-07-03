@@ -4,4 +4,3 @@ entity.activity_type.collection:
   route_name: entity.activity_type.collection
   description: 'List Activity type (bundles)'
   parent: system.admin_structure
-
